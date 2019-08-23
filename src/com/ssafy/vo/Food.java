@@ -8,7 +8,7 @@ public class Food {
 	protected String name;
 	/**일회 제공 량*/
 	protected double supportpereat;
-	/**일회 제공되는 칼로기*/
+	/**일회 제공되는 칼로리*/
 	protected double calory;
 	/**일회 제공되는 탄수화물*/
 	protected double carbo;
@@ -39,9 +39,40 @@ public class Food {
 		super();
 		this.code = code;
 	}
+	public Food(int code, String name, String maker, String material) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.maker = maker;
+		this.material = material;
+	}
+	
+	
+	public Food(int code, String name, double supportpereat, double calory, double carbo, double protein, double fat,
+			double sugar, double natrium, double chole, double fattyacid, double transfat, String maker,
+			String material, String img, String allergy) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.supportpereat = supportpereat;
+		this.calory = calory;
+		this.carbo = carbo;
+		this.protein = protein;
+		this.fat = fat;
+		this.sugar = sugar;
+		this.natrium = natrium;
+		this.chole = chole;
+		this.fattyacid = fattyacid;
+		this.transfat = transfat;
+		this.maker = maker;
+		this.material = material;
+		this.img = img;
+		this.allergy = allergy;
+	}
 	public int getCode() {
 		return code;
 	}
+	
 	public void setCode(int code) {
 		this.code = code;
 	}

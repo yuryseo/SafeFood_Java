@@ -17,15 +17,17 @@ public interface FoodDao {
 	 * web에서 페이징 처리시 필요 
 	 * @param bean  검색 조건과 검색 단어가 있는 객체
 	 * @return 조회한  식품 개수
+	 * @throws SQLException 
 	 */
-	public int foodCount(FoodPageBean bean);
+	public int foodCount(FoodPageBean bean) throws SQLException;
 	
 	/**
 	 * 검색 조건(key) 검색 단어(word)에 해당하는 식품 정보(Food)를  검색해서 반환.  
 	 * @param bean  검색 조건과 검색 단어가 있는 객체
 	 * @return 조회한 식품 목록
+	 * @throws SQLException 
 	 */
-	public List<Food> searchAll(FoodPageBean  bean);
+	public List<Food> searchAll(FoodPageBean  bean) throws SQLException;
 	
 	/**
 	 * 식품 코드에 해당하는 식품정보를 검색해서 반환. 

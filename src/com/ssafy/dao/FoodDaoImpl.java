@@ -92,20 +92,21 @@ public class FoodDaoImpl implements FoodDao{
 	 * web에서 페이징 처리시 필요 
 	 * @param bean  검색 조건과 검색 단어가 있는 객체
 	 * @return 조회한  식품 개수
+	 * @throws SQLException 
 	 */
-	public int foodCount(FoodPageBean  bean){
+	public int foodCount(FoodPageBean  bean) throws SQLException{
 
 		//구현하세요.
-		
-		return 0;
+		return searchAll(bean).size();
 	}
 	
 	/**
 	 * 검색 조건(key) 검색 단어(word)에 해당하는 식품 정보(Food)를  검색해서 반환.  
 	 * @param bean  검색 조건과 검색 단어가 있는 객체
 	 * @return 조회한 식품 목록
+	 * @throws SQLException 
 	 */
-	public List<Food> searchAll(FoodPageBean  bean){
+	public List<Food> searchAll(FoodPageBean  bean) throws SQLException{
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -119,9 +120,9 @@ public class FoodDaoImpl implements FoodDao{
 				try {
 					con = DBUtil.getConnection();
 					if(!key.equals("all") && word!=null && !word.trim().equals("")) {
-						String sql = null;
+						String sql = " select * from food where "+key+" like '%"+word+"%' ";
 						stmt = con.prepareStatement(sql);
-						if(key.equals("name")) {
+/*						if(key.equals("name")) {
 							 sql = " select * from food where name='?' ";
 						}else if(key.equals("maker")){
 							 sql = " select * from food where maker='?' ";
@@ -129,9 +130,9 @@ public class FoodDaoImpl implements FoodDao{
 							sql = " select * from food where material like '%?%' ";
 							// select * from food where material like '%육수%'   ;
 						}
-						
+						*/
 						rs = stmt.executeQuery();
-						stmt.setString(1, word);
+						//stmt.setString(1, word);
 						
 						
 					}else {//all
@@ -141,11 +142,28 @@ public class FoodDaoImpl implements FoodDao{
 						
 					}
 					while (rs.next()) {
-						finds.add(new Food( rs.getInt("code"), rs.getString("name"), rs.getString("maker"),rs.getString("material") ));
+						finds.add(new Food( 
+								rs.getInt("code"),
+								rs.getString("name"),
+								
+								rs.getDouble("supportpereat"),
+								rs.getDouble("calory"),
+								rs.getDouble("carbo"),
+								rs.getDouble("protein"),
+								rs.getDouble("fat"),
+								rs.getDouble("sugar"),
+								rs.getDouble("natrium"),
+								rs.getDouble("chole"),
+								rs.getDouble("fattyacid"),
+								rs.getDouble("transfat"),
+								
+								rs.getString("maker"),
+								rs.getString("material") ,
+								rs.getString("img") ,
+								rs.getString("allergy") 
+								));
 					}
 					return finds;
-				} catch (SQLException e) {
-					//e.printStackTrace();
 				} finally {
 					DBUtil.close(rs);
 					DBUtil.close(stmt);
@@ -153,7 +171,7 @@ public class FoodDaoImpl implements FoodDao{
 				}
 				
 		}
-		return null;
+		return finds;
 	}
 	
 	/**
@@ -220,7 +238,7 @@ public class FoodDaoImpl implements FoodDao{
 		return null;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		FoodDaoImpl dao = new FoodDaoImpl();
 		dao.loadData();
 		System.out.println(dao.search(1));
@@ -233,11 +251,14 @@ public class FoodDaoImpl implements FoodDao{
 		System.out.println("============================================================");
 		print(dao.searchAll(null));
 		System.out.println("============================================================");
+		System.out.println(dao.foodCount(new FoodPageBean("material", "감자전분", null, 0)));
 	}
 	
 	public static void print(List<Food> foods) {
-		for (Food food : foods) {
-			System.out.println(food);
+		if (foods.size() > 0) {
+			for (Food food : foods) {
+				System.out.println(food);
+			}
 		}
 	}
 }

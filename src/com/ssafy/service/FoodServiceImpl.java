@@ -1,11 +1,13 @@
 package com.ssafy.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.dao.FoodDao;
 import com.ssafy.dao.FoodDaoImpl;
 import com.ssafy.vo.Food;
 import com.ssafy.vo.FoodPageBean;
+import com.ssafy.vo.SafeFoodException;
 
 public class FoodServiceImpl implements FoodService{
 	private FoodDao dao;
@@ -15,7 +17,15 @@ public class FoodServiceImpl implements FoodService{
 		 dao =new FoodDaoImpl();
 	}
 	public List<Food> searchAll(FoodPageBean bean) {
-		return dao.searchAll(bean);
+		
+		
+		try {
+			return dao.searchAll(bean);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new SafeFoodException("Null");
+		}
 	}
 	public Food search(int code) {
 

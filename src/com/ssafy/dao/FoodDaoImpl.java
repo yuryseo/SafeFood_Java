@@ -45,7 +45,7 @@ public class FoodDaoImpl implements FoodDao{
 			
 			String sql = " insert into food(code,name,supportpereat,calory,"
 					+ "carbo,protein,fat,sugar,natrium,chole,fattyacid,transfat, maker, material,img, allergy) "
-					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?) ";
+					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
 			stmt1 = con.prepareStatement(sql);
 			

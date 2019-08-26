@@ -20,3 +20,5 @@
     
 
 ![screenshot_20171221-151714](https://lab.ssafy.com/smile486z/safefood/uploads/4e75e4ed24d6f13d5e1ce281bf0460cb/1.png)
+
+![screenshot_20171221-151714](https://lab.ssafy.com/smile486z/safefood/uploads/d2471905ee42c82c4b236a4806dd590b/2.png)
